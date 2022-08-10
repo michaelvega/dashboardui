@@ -1,6 +1,7 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+import 'firebase/compat/storage';
 import ReduxSagaFirebase from 'redux-saga-firebase';
 import isoConfig from '@iso/config/firebase.config';
 // Example if anyone want to use different config for production and development using .env

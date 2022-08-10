@@ -1,12 +1,17 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import Loader from '@iso/components/utility/loader';
+import {route} from "express/lib/router";
 
 const routes = [
 	{
 		path: '',
 		component: lazy(() => import('@iso/containers/Widgets/Widgets')),
 		exact: true,
+	},
+	{
+		path: 'assets',
+		component: lazy(() => import('@iso/components/Assets/Assets')),
 	},
 	{
 		path: 'inbox',
@@ -343,6 +348,8 @@ export default function AppRouter() {
 					</Route>
 				))}
 			</Switch>
-		</Suspense>
+			<Route
+				exact={`./assets`} key={"assets"} path={`${url}/${route.path}`} />
+			</Suspense>
 	);
 }

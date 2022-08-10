@@ -4,6 +4,11 @@ const options = [
 		label: 'sidebar.email',
 		leftIcon: 'ion-android-mail',
 	},
+	//{
+	//	key: 'assets',
+	//	label: 'sidebar.assets',
+	//	leftIcon: 'ion-cube',
+	//},
 	{
 		key: 'chat',
 		label: 'sidebar.chat',

@@ -9,6 +9,7 @@ import appActions from '@iso/redux/app/actions';
 import Logo from '@iso/components/utility/logo';
 import SidebarWrapper from './Sidebar.styles';
 import SidebarMenu from './SidebarMenu';
+import {Link} from "react-router-dom";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const { Sider } = Layout;
@@ -105,6 +106,14 @@ export default function Sidebar() {
 						selectedKeys={current}
 						onOpenChange={onOpenChange}
 					>
+						<Menu.Item key="email">
+							<Link to={`./Assets`}>
+							<span className="isoMenuHolder">
+							<i className="ion-cube" />
+							<span className="nav-text">Assets</span>
+							</span>
+							</Link>
+						</Menu.Item>
 						{options.map((singleOption) => (
 							<SidebarMenu
 								key={singleOption.key}
