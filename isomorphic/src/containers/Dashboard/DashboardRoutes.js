@@ -348,8 +348,6 @@ export default function AppRouter() {
 					</Route>
 				))}
 			</Switch>
-			<Route
-				exact={`./assets`} key={"assets"} path={`${url}/${route.path}`} />
 			</Suspense>
 	);
 }

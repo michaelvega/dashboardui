@@ -107,7 +107,7 @@ export default function Sidebar() {
 						onOpenChange={onOpenChange}
 					>
 						<Menu.Item key="email">
-							<Link to={`./Assets`}>
+							<Link to={`/dashboard/Assets`}>
 							<span className="isoMenuHolder">
 							<i className="ion-cube" />
 							<span className="nav-text">Assets</span>

@@ -4,6 +4,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/storage';
 import ReduxSagaFirebase from 'redux-saga-firebase';
 import isoConfig from '@iso/config/firebase.config';
+import { getStorage } from "firebase/storage";
 // Example if anyone want to use different config for production and development using .env
 
 // const prodConfig = {
@@ -30,5 +31,6 @@ export const firebaseApp = !firebase.apps.length
   : firebase.app();
 export const auth = firebase.auth();
 export const db = firebase.firestore();
+export const storage = getStorage(firebaseApp);
 export const rsf = new ReduxSagaFirebase(firebaseApp);
 export default firebase;
