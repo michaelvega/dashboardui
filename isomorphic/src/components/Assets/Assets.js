@@ -15,6 +15,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {UploadOutlined} from "@ant-design/icons";
 import {Button} from "antd";
 import { direction } from '@iso/lib/helpers/rtl';
+import DropFileInput from "../Dragndrop/DropFileInput";
+import "../Dragndrop/assets/Dragndrop.css"
 
 
 function getLocation() {
@@ -74,6 +76,10 @@ const Assets = () => {
 
     };
 
+    const onFileChange = (files) => {
+        console.log(files);
+    }
+
     //<input type="text" placeholder="Text or..." /> TEXTINPUT
     /*
     <button onClick={handleSubmit} className="button ps-button" disabled={!image} style={{
@@ -81,13 +87,25 @@ const Assets = () => {
                                         cursor: !image ? "not-allowed" : "pointer"
                                     }}>Upload</button>
      */
+
     return (
         <LayoutWrapper>
             <PageHeader>Upload Assets</PageHeader>
             <Box>
                 <ContentHolder>
                     <div className="PostShareWrapper">
+                        <div className="DragndropWrapper">
+                            <div className="box">
+                                <h2 className="header">
+                                    React drop files input
+                                </h2>
+                                <DropFileInput
+                                    onFileChange={(files) => onFileChange(files)}
+                                />
+                            </div>
+                        </div>
                         <div className="PostShare">
+
                             <div>
 
                                 <div className="postOptions">
