@@ -3,6 +3,7 @@ import { createBrowserHistory } from 'history';
 
 import { getToken, clearToken } from '@iso/lib/helpers/utility';
 import actions from './actions';
+import firebase from "../../library/firebase/firebase";
 
 const history = createBrowserHistory();
 const fakeApiCall = true; // auth0 or express JWT
@@ -43,7 +44,14 @@ export function* loginError() {
 export function* logout() {
   yield takeEvery(actions.LOGOUT, function*() {
     yield clearToken();
-    history.push('/');
+    var user = firebase.auth().currentUser;
+    user ? console.log("eyus") : console.log("no");
+    firebase.auth().signOut().then((r) => {
+      history.push('/')
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("profilePic");
+    });
   });
 }
 export function* checkAuthorization() {

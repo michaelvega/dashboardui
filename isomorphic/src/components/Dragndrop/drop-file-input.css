@@ -8,6 +8,8 @@
     --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+
+
 .drop-file-input {
     position: relative;
     width: 400px;
@@ -100,4 +102,11 @@
 
 .drop-file-preview__item:hover .drop-file-preview__item__del {
     opacity: 1;
+}
+
+@media screen and (max-width: 767px) {
+    .drop-file-input {
+        width: 50vw;
+    }
+
 }

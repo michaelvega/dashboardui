@@ -89,6 +89,7 @@ const SignInStyleWrapper = styled.div`
           &::-moz-placeholder {
             color: ${palette('grayscale', 0)};
           }
+
           &:-ms-input-placeholder {
             color: ${palette('grayscale', 0)};
           }
@@ -101,9 +102,9 @@ const SignInStyleWrapper = styled.div`
         line-height: 1.2;
         color: ${palette('grayscale', 1)};
         padding-left: ${props =>
-          props['data-rtl'] === 'rtl' ? 'inherit' : '13px'};
+                props['data-rtl'] === 'rtl' ? 'inherit' : '13px'};
         padding-right: ${props =>
-          props['data-rtl'] === 'rtl' ? '13px' : 'inherit'};
+                props['data-rtl'] === 'rtl' ? '13px' : 'inherit'};
         margin: 15px 0;
         position: relative;
         display: flex;
@@ -173,6 +174,15 @@ const SignInStyleWrapper = styled.div`
             }
           }
 
+          &.btnAnonymousSignIn {
+            background-color: #a4a4a4;
+            margin-top: 15px;
+
+            &:hover {
+              background-color: darken(#a4a4a4, 5%);
+            }
+          }
+
           &.btnFirebase {
             background-color: ${palette('color', 5)};
             margin-top: 15px;
@@ -183,11 +193,11 @@ const SignInStyleWrapper = styled.div`
           }
 
           &.btnAccountKit {
-            ${'' /* background-color: rgb(150, 189, 235); */}
+          ${'' /* background-color: rgb(150, 189, 235); */}
             margin-top: 15px;
 
             &:hover {
-              ${'' /* background-color: ${palette('color', 6)}; */}
+            ${'' /* background-color: ${palette('color', 6)}; */}
             }
           }
         }

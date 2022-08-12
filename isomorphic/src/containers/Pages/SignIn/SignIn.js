@@ -14,6 +14,7 @@ import {
   signInWithFacebook,
 } from '@iso/lib/firebase/firebase.authentication.util';
 import SignInStyleWrapper from './SignIn.styles';
+import {signInWithAnonymous} from "../../../library/firebase/firebase.authentication.util";
 
 const { login } = authAction;
 const { clearMenu } = appAction;
@@ -112,6 +113,16 @@ export default function SignIn() {
               >
                 <IntlMessages id="page.signInAuth0" />
               </Button>
+
+
+              <Button
+                onClick={signInWithAnonymous}
+                type="primary"
+                className="btnAnonymousSignIn"
+                >
+                <IntlMessages id="page.signInAnonymously" />
+              </Button>
+
 
               <FirebaseLoginForm
                 history={history}

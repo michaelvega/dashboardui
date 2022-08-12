@@ -46,6 +46,16 @@ export const signInWithFacebook = () =>
 
       // ...
     });
+
+export const anonymousProvider = firebase.auth(); // FOR TEST ONLY
+export const signInWithAnonymous = () =>
+    anonymousProvider.signInAnonymously().then((result) => {
+        const name = result.user.uid;
+        localStorage.setItem('name', name);
+    });
+
+
+
 export const signInWithGithub = () => auth.signInWithPopup(githubProvider);
 export const signInWithTwitter = () => auth.signInWithPopup(twitterProvider);
 export const signInWithEmail = async (email, password) =>
