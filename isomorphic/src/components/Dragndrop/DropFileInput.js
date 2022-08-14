@@ -85,12 +85,10 @@ const DropFileInput = props => {
         },
     };
 
-    const [lattitude, setLattitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(handleSubmit);
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
@@ -99,12 +97,24 @@ const DropFileInput = props => {
     function showPosition(position) {
         console.log("Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude);
-        setLattitude(parseFloat(position.coords.latitude));
-        setLongitude(parseFloat(position.coords.longitude));
     }
 
 
     const handleSubmit = () => {
+        function onSuccess(position) {
+            geolocation = new GeoPoint(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude))
+            const nullIsland = new GeoPoint(null, null);
+            if (geolocation.isEqual(nullIsland)) {
+                geolocation = "Null Island";
+                console.log("Null Island Error");
+            }
+        }
+
+        function onError() {
+            geolocation = "Access Denied";
+            console.log("Failed to get your Geolocation");
+        }
+
         let imageName = [];
         let imageUrl = []
         let geolocation = "";
@@ -112,13 +122,12 @@ const DropFileInput = props => {
         const batchName = String("batch" + uuidv4());
         const batchRef = doc(collection(db, `users/${user.uid}/${batchName}`));
         if (checked) {
-            getLocation();
-            geolocation = new GeoPoint(lattitude, longitude)
-            const nullIsland = new GeoPoint(null, null);
-            if (geolocation.isEqual(nullIsland)) {
-                console.log("Geolocation Access Denied");
-                geolocation = "Access Denied";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            } else {
+                console.log("Geolocation is not supported by this browser.");
             }
+            console.log(geolocation);
         }
         for (let i = 0; i < fileList.length; i++) {
             const name = uuidv4();

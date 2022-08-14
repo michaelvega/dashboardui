@@ -16,6 +16,8 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();
 export const githubProvider = new firebase.auth.GithubAuthProvider();
 export const twitterProvider = new firebase.auth.TwitterAuthProvider();
+
+
 export const signInWithGoogle = () => {
   auth.signInWithPopup(googleProvider).then((result) => {
     const name = result.user.displayName;
@@ -26,6 +28,8 @@ export const signInWithGoogle = () => {
     localStorage.setItem('email', email);
     localStorage.setItem('profilePic', profilePic);
     //Usestate
+  }).catch((e) => {
+      console.log(e)
   });
 };
 export const signInWithFacebook = () =>

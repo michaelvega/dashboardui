@@ -9,12 +9,8 @@ import FirebaseLoginForm from '../../FirebaseForm/FirebaseForm';
 import authAction from '@iso/redux/auth/actions';
 import appAction from '@iso/redux/app/actions';
 import Auth0 from '../../Authentication/Auth0/Auth0';
-import {
-  signInWithGoogle,
-  signInWithFacebook,
-} from '@iso/lib/firebase/firebase.authentication.util';
 import SignInStyleWrapper from './SignIn.styles';
-import {signInWithAnonymous} from "../../../library/firebase/firebase.authentication.util";
+import {signInWithAnonymous, signInWithGoogle, signInWithFacebook} from "../../../library/firebase/firebase.authentication.util";
 
 const { login } = authAction;
 const { clearMenu } = appAction;
