@@ -9,9 +9,14 @@ import uploadImg from './assets/cloud-upload-regular-240.png';
 import {UploadOutlined} from "@ant-design/icons";
 import {Button} from "antd";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
-import {storage} from "../../library/firebase/firebase";
+import firebase, {auth, storage, db} from "../../library/firebase/firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { direction } from '@iso/lib/helpers/rtl';
+import { doc, setDoc, addDoc, collection, getFirestore, getDocs  } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import {addDocument} from "../../library/firebase/firebase.util";
+
+
 
 
 
@@ -54,22 +59,37 @@ const DropFileInput = props => {
     }
 
     const [image, setImage] = useState(null);
-    const [url, setUrl] = useState([]);
     const [size, setSize] = React.useState('large');
+    const [pleaseLogIn, setPleaseLogIn] = useState(false);
+    const auth = getAuth();
+    const user = auth.currentUser;
+
 
     const handleSubmit = () => {
-        for (let i = 0; i < fileList.length; i++)
-        {
+        let imageName = [];
+        let imageUrl = [];
+        const batchName = String("batch" + uuidv4());
+        const batchRef = doc(collection(db, `users/${user.uid}/${batchName}`));
+        for (let i = 0; i < fileList.length; i++) {
             const name = uuidv4();
+            imageName.push(name);
             const imageRef = ref(storage, `images/${name}`);
             const image = fileList[i];
-            console.log(typeof(image));
-            if (image){
+            console.log(typeof (image));
+            if (image) {
                 uploadBytes(imageRef, image)
                     .then(() => {
                         getDownloadURL(imageRef)
-                            .then((currUrl) => {
-                                setUrl(url => [...url, currUrl]);
+                            .then( async (currUrl) => {
+                                console.log(currUrl);
+                                imageUrl.push(currUrl);
+
+                                await setDoc(batchRef, {
+                                    imageURLs: imageUrl,
+                                    imageNames: imageName,
+                                    imageTags: []
+                                }, { merge: true });
+                                console.log(batchRef.id);
                             })
                             .catch((error) => {
                                 console.log(error.message, "error getting the image url");
@@ -79,12 +99,14 @@ const DropFileInput = props => {
                     .catch((error) => {
                         console.log(error.message);
                     });
-            }
-            else {
+            } else {
                 console.log("No Image Selected");
             }
         }
-        console.log(url);
+
+
+        console.log(imageUrl); //TEST ONLY
+        console.log(imageName); //TEST ONLY
     };
 
     return (
@@ -142,11 +164,26 @@ const DropFileInput = props => {
                         cursor: !fileList.length ? "not-allowed" : "pointer",
                     }}
                     disabled={!fileList.length}
-                    onClick={() => {handleSubmit(); fileCLear();}}
+                    onClick={() => {
+                        if (!!firebase.auth().currentUser) {
+                            setPleaseLogIn(false);
+                            handleSubmit();
+                            fileCLear();
+                            console.log("log in check passed");
+                        }
+                        else {
+                            setPleaseLogIn(true);
+                            console.log("note logged in");
+                        }
+                    }}
 
                 >
                     Upload
                 </Button>
+                <p style={{
+                    color: "red",
+                    display: pleaseLogIn ? "" : "none"
+                }}>Please Login to Upload Images</p>
             </div>
         </div>
 
