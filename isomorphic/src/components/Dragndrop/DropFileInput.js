@@ -7,14 +7,20 @@ import "./assets/Dragndrop.css";
 import { ImageConfig } from './config/ImageConfig';
 import uploadImg from './assets/cloud-upload-regular-240.png';
 import {UploadOutlined} from "@ant-design/icons";
-import {Button} from "antd";
+import {Button, Form, Input, Checkbox, } from "antd";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import firebase, {auth, storage, db} from "../../library/firebase/firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { direction } from '@iso/lib/helpers/rtl';
-import { doc, setDoc, addDoc, collection, getFirestore, getDocs  } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, getFirestore, getDocs, serverTimestamp, } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import {addDocument} from "../../library/firebase/firebase.util";
+import {addDocument} from "../../library/firebase/firebase.util"
+import {GeoPoint} from "firebase/firestore";
+import {toFloat} from "@glidejs/glide/src/utils/unit";
+
+
+
+
 
 
 
@@ -64,12 +70,56 @@ const DropFileInput = props => {
     const auth = getAuth();
     const user = auth.currentUser;
 
+    const [checked, setChecked] = useState(false);
+
+    const tailFormItemLayout = {
+        wrapperCol: {
+            xs: {
+                span: 24,
+                offset: 0,
+            },
+            sm: {
+                span: 16,
+                offset: 8,
+            },
+        },
+    };
+
+    const [lattitude, setLattitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        console.log("Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude);
+        setLattitude(parseFloat(position.coords.latitude));
+        setLongitude(parseFloat(position.coords.longitude));
+    }
+
 
     const handleSubmit = () => {
         let imageName = [];
-        let imageUrl = [];
+        let imageUrl = []
+        let geolocation = "";
+
         const batchName = String("batch" + uuidv4());
         const batchRef = doc(collection(db, `users/${user.uid}/${batchName}`));
+        if (checked) {
+            getLocation();
+            geolocation = new GeoPoint(lattitude, longitude)
+            const nullIsland = new GeoPoint(null, null);
+            if (geolocation.isEqual(nullIsland)) {
+                console.log("Geolocation Access Denied");
+                geolocation = "Access Denied";
+            }
+        }
         for (let i = 0; i < fileList.length; i++) {
             const name = uuidv4();
             imageName.push(name);
@@ -87,7 +137,9 @@ const DropFileInput = props => {
                                 await setDoc(batchRef, {
                                     imageURLs: imageUrl,
                                     imageNames: imageName,
-                                    imageTags: []
+                                    imageTags: [],
+                                    createdAt: serverTimestamp(),
+                                    geopoint: geolocation
                                 }, { merge: true });
                                 console.log(batchRef.id);
                             })
@@ -153,6 +205,13 @@ const DropFileInput = props => {
                     }
                 </div>
             </div>
+            <Form.Item
+                {...tailFormItemLayout}
+              >
+                <Checkbox checked={checked} onChange={(e) => { setChecked(e.target.checked);}}>
+                  Include Geolocation of Asset
+                </Checkbox>
+              </Form.Item>
             <div className="ButtonWrapper">
                 <Button
                     type="primary"
@@ -169,6 +228,7 @@ const DropFileInput = props => {
                             setPleaseLogIn(false);
                             handleSubmit();
                             fileCLear();
+                            setChecked(false);
                             console.log("log in check passed");
                         }
                         else {
