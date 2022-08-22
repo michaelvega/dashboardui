@@ -83,7 +83,7 @@ const customHtmlMarker = [
     className: 'marker-icon',
     popupText: `
       <div class="isoInfoWindowImage">
-        <img src=${infoWindowImg2} alt="" />
+        <img src="https://firebasestorage.googleapis.com/v0/b/fir-functions-api-a924d.appspot.com/o/images%2F7162a042-f547-4591-8235-e67e7f713ebe?alt=media&token=2ffa1b50-1615-4ec2-871c-d58d304cf317" alt="" />
       </div>
       <div class="isoInfoWindowDetails">
         <h3>Washington Square Village</h3>
