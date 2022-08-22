@@ -548,7 +548,7 @@
   "Map.leaflet.basicTitle": "Basic Map",
   "Map.leaflet.basicMarkerTitle": "Basic Map(With Default Marker",
   "Map.leaflet.leafletCustomMarkerTitle": "Basic Map(With Custom Icon Marker)",
-  "Map.leaflet.leafletCustomHtmlMarkerTitle": "Basic Map(With Custom Html Marker",
+  "Map.leaflet.leafletCustomHtmlMarkerTitle": "Experts/Assets Locator",
   "Map.leaflet.leafletMarkerClusterTitle": "Basic Map(With Marker Cluster",
   "Map.leaflet.leafletRoutingTitle": "Basic Map Routing",
   "Component.contacts.noOption": "No contact found",

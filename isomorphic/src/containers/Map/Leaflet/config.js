@@ -78,15 +78,36 @@ const customHtmlMarker = [
     position: [40.68792, -74.01626],
     html: `
       <MarkerWrapper class="marker-icon-wrapper">
-        <i class="ion-flame" />
+        <i class="ion-cube" />
       </MarkerWrapper>`,
     className: 'marker-icon',
     popupText: `
       <div class="isoInfoWindowImage">
-        <img src="https://firebasestorage.googleapis.com/v0/b/fir-functions-api-a924d.appspot.com/o/images%2F7162a042-f547-4591-8235-e67e7f713ebe?alt=media&token=2ffa1b50-1615-4ec2-871c-d58d304cf317" alt="" />
+        <img src="https://firebasestorage.googleapis.com/v0/b/fir-functions-api-a924d.appspot.com/o/images%2F0ceb2e7b-ecd0-43af-a9d2-938a831bc331?alt=media&token=b6cf5dc1-6a4b-4f4b-93b6-1cddeb4626ed" alt="" />
       </div>
       <div class="isoInfoWindowDetails">
-        <h3>Washington Square Village</h3>
+        <h3>TRUE Refrigerator</h3>
+      </div>`,
+  },
+
+  {
+    position: [30.68792, -85.01626],
+    html: `
+      <MarkerWrapper class="marker-icon-wrapper">
+        <i class="ion-android-person" />
+      </MarkerWrapper>`,
+    className: 'marker-icon',
+    popupText: `
+      <div class="isoInfoWindowImage">
+        <img src="https://www.yourfreecareertest.com/wp-content/uploads/2016/10/construction_worker_laborer.jpg" alt="" />
+      </div>
+      <div class="isoInfoWindowDetails">
+        <h3>Jacob Miller</h3>
+        <ul>
+          <li>Occupation: Construction Worker</li>
+          <li>Experience Level: 7 years</li>
+          <li>Certifications: Java 8SE</li>
+        </ul>
       </div>`,
   },
 ];

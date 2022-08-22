@@ -1,7 +1,8 @@
-import firebase, { auth } from './firebase';
+import firebase, { db, auth } from './firebase';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SignIn from '../../containers/Pages/SignIn/SignIn';
+import {collection, getDocs} from "firebase/firestore";
 
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
@@ -16,7 +17,9 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();
 export const githubProvider = new firebase.auth.GithubAuthProvider();
 export const twitterProvider = new firebase.auth.TwitterAuthProvider();
-
+export const listLocations = () => {
+    return getDocs(collection(db, "users"));
+};
 
 export const signInWithGoogle = () => {
   auth.signInWithPopup(googleProvider).then((result) => {

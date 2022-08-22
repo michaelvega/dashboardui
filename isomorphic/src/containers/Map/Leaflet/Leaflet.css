@@ -1,0 +1,9 @@
+#map-with-custom-markers {
+    width: 50%;
+    height: 100vh;
+}
+
+#leafletMap1 {
+    width: 100% !important;
+    height: 75vh !important
+}
