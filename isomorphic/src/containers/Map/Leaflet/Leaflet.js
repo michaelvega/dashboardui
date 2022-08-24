@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { Row, Col } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Row, Col, Checkbox} from 'antd';
 import LayoutWrapper from '@iso/components/utility/layoutWrapper';
 import PageHeader from '@iso/components/utility/pageHeader';
 import ContentHolder from '@iso/components/utility/contentHolder';
@@ -18,17 +18,21 @@ export default function() {
        listLocations().then((docs) => {console.log(docs)});
     }, [])
 
-  return (
-    <LayoutWrapper>
-      <PageHeader>Map</PageHeader>
+    const [checked, setChecked] = useState(false);
+
+
+    return (
       <Row style={rowStyle} gutter={gutter} justify="start">
 
-        <Col md={24} sm={12} xs={24} style={colStyle} id="leafletMap">
+        <Col md={24} sm={24} xs={24} style={colStyle} id="leafletMap">
           <Box
             title={
               <IntlMessages id="Map.leaflet.leafletCustomHtmlMarkerTitle" />
             }
           >
+          <Checkbox checked={checked} onChange={(e) => { setChecked(e.target.checked);}}>
+              Toggle Measure Distances
+          </Checkbox>
             <ContentHolder>
               <LeafletMap
                 id="map-with-custom-markers"
@@ -38,6 +42,5 @@ export default function() {
           </Box>
         </Col>
       </Row>
-    </LayoutWrapper>
   );
 }

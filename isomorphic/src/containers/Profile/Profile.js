@@ -55,7 +55,7 @@ const MyProfile = () => {
           >
             <Container className="container">
               <AvatarCard
-                avatar={localStorage.getItem('photoPic')}
+                avatar={localStorage.getItem('photoPic') ? localStorage.getItem('photoPic') : "https://www.safetyandhealthmagazine.com/ext/resources/images/news/construction/worker-yellow-helmet.jpg?height=635&t=1597163615&width=1200"} // default pfp
                 name={localStorage.getItem('name')}
                 username={localStorage.getItem('email')}
               />

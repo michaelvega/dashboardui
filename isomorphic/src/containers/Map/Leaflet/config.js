@@ -87,11 +87,16 @@ const customHtmlMarker = [
       </div>
       <div class="isoInfoWindowDetails">
         <h3>TRUE Refrigerator</h3>
+        <ul>
+          <li>SERIAL NO: 849320</li>
+          <li>Manufacture: TRUE</li>
+          <li>PH: 1 1/2</li>
+        </ul>
       </div>`,
   },
 
   {
-    position: [30.68792, -85.01626],
+    position: [41.68792, -75.01626],
     html: `
       <MarkerWrapper class="marker-icon-wrapper">
         <i class="ion-android-person" />

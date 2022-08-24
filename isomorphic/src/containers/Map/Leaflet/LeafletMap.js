@@ -3,7 +3,7 @@ import L from 'leaflet';
 import Wrapper from './LeafletMap.styles';
 const style = {
   width: '100%',
-  height: '400px',
+  height: '100vh', // LEAFLET MAP HEIGHT
 };
 const config = {
   tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',

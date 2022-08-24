@@ -11,7 +11,9 @@ const AvatarCard = ({ className, avatar, name, username }) => {
       )}
       {name || username ? (
         <Info className="info">
-          {name && <h3 className="name">{name}</h3>}
+          {name && <h3 style={{
+            color: "white"
+          }} className="name">{name}</h3>}
           {username && <p className="username">{username}</p>}
         </Info>
       ) : (
